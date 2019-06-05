@@ -1,15 +1,20 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sun.rmi.runtime.Log;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -22,7 +27,8 @@ public class QuestionController {
     @Autowired
     JdbcTemplate jdbcTemplate;
     @GetMapping("/hello")
-    public List<Question> getQuestions( ModelMap modelMap){
+    public List<Question> getQuestions(ModelMap modelMap){
+        System.out.println("connect hello");
         List<Question> list = new ArrayList<>();
         String sql = "SELECT * FROM demo1.Question;";
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -49,9 +55,19 @@ public class QuestionController {
         return list;
     }
 
-    public List<Question> randomQuestion(List<Question> list){
+    @PostMapping("/demo")
+    public String demo(@RequestParam String s){
+        System.out.println("connect");
+        List<HashMap<String, HashMap<String, String>>> list = new ArrayList<>();
+        Gson gsonBuilder = new GsonBuilder().create();
 
-        return list;
-
+        Type listType = new TypeToken<List<HashMap<String, HashMap<String, String>>>>() {}.getType();
+        list =  gsonBuilder.fromJson(s, listType);
+        System.out.println(s);
+        System.out.println(list);
+        HashMap<String, String> lop10 = new HashMap<>();
+        HashMap<String,HashMap<String, String>> json = new HashMap<>();
+        return "connect";
     }
+
 }
