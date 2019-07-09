@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @Author Andre Godinez
  *
- * Abstract class to represent com.example.demo.types.node.Node
+ * Abstract class to represent com.example.getSchoolScore.types.node.Node
  *
  */
 public abstract class Node {

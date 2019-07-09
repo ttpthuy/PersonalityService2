@@ -54,10 +54,10 @@ public class C45 {
 	/**
 	 * @Author Andre Godinez
 	 *
-	 *         Training function given com.example.demo.data of instances and attributes
+	 *         Training function given com.example.getSchoolScore.data of instances and attributes
 	 *
 	 * @param data
-	 *            - the com.example.demo.data object containing the attributes and instances
+	 *            - the com.example.getSchoolScore.data object containing the attributes and instances
 	 *
 	 */
 	public void train(Data data) {
@@ -74,7 +74,7 @@ public class C45 {
 	 *         function that returns the accuracy of c45 decision tree.
 	 *
 	 * @param instanceList
-	 *            - the list of instances containing test com.example.demo.data
+	 *            - the list of instances containing test com.example.getSchoolScore.data
 	 * @param node
 	 *            - build decision tree
 	 * @return accuracy
@@ -131,7 +131,7 @@ public class C45 {
 	 *         test and training datasets.
 	 *
 	 * @param data
-	 *            - input com.example.demo.data from file
+	 *            - input com.example.getSchoolScore.data from file
 	 * @param n
 	 *            - num times to do cross validation
 	 * @return HashMap of list of accuracies and average accuracy
@@ -140,7 +140,7 @@ public class C45 {
 	public void crossValidation(Data data, int n) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter out = new PrintWriter("actual_predicted.txt", "UTF-8");
 
-		// Fetch instanceList from input com.example.demo.data
+		// Fetch instanceList from input com.example.getSchoolScore.data
 		List<Instance> instanceList = data.getInstanceList();
 		List<Attribute> attributeList = data.getAttributes();
 
@@ -266,7 +266,7 @@ public class C45 {
 	 * @param instanceList
 	 * @param attributeList
 	 * @param parentInstances
-	 * @return com.example.demo.types.node.Node - built Decision Tree
+	 * @return com.example.getSchoolScore.types.node.Node - built Decision Tree
 	 *
 	 */
 	public Node fit(List<Instance> instanceList, List<Attribute> attributeList, List<Instance> parentInstances,
@@ -391,8 +391,8 @@ public class C45 {
 //		//
 //		 Instance test = new Instance(avp, "Test");
 //		//
-//		 String predictedValue = com.example.demo.classifier.predict(test,
-//		 com.example.demo.classifier.getDecisionTree());
+//		 String predictedValue = com.example.getSchoolScore.classifier.predict(test,
+//		 com.example.getSchoolScore.classifier.getDecisionTree());
 //		//
 //		 System.out.println(predictedValue);
 //

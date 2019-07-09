@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MyC45 {
 
 	public static void main(String[] args) throws IOException {
-		// .csv com.example.demo.data sets
+		// .csv com.example.getSchoolScore.data sets
 		String files[] = {"data_sets/tic_tac_toe.csv"};
 		Scanner scan;
 		
@@ -22,7 +22,7 @@ public class MyC45 {
 		int classIndex    = headers.length - 1;
 		int numAttributes = headers.length - 1;
 		
-		// store com.example.demo.data set attributes
+		// store com.example.getSchoolScore.data set attributes
 		Attribute attributes[] = new Attribute[numAttributes];
 		for(int x = 0; x < numAttributes; x++) {
 			attributes[x] = new Attribute(headers[x]);
@@ -55,7 +55,7 @@ public class MyC45 {
 				}
 			}
 			
-			// insert com.example.demo.data into attributes
+			// insert com.example.getSchoolScore.data into attributes
 			for(int x = 0; x < numAttributes; x++){
 				data = new Val(lineData[x], lineData[classIndex]);
 				attributes[x].insertVal(data);

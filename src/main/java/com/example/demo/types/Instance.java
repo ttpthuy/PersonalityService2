@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 /**
  * @Author Andre Godinez
  *
- * com.example.demo.types.Instance class
+ * com.example.getSchoolScore.types.Instance class
  *
  */
 public class Instance {
@@ -17,7 +17,7 @@ public class Instance {
     private LinkedHashMap<String, String> attributeValues;
 
     /**
-     * com.example.demo.types.Instance constructor
+     * com.example.getSchoolScore.types.Instance constructor
      *
      * @param attributeValues
      * @param targetValue
@@ -37,7 +37,7 @@ public class Instance {
 
     @Override
     public String toString() {
-        return "com.example.demo.types.Instance{" +
+        return "com.example.getSchoolScore.types.Instance{" +
                 "targetValue='" + targetValue + '\'' +
                 ", attributeValues=" + attributeValues +
                 '}' + "\n";

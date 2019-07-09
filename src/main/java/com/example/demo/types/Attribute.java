@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @Author Andre Godinez
  *
- * com.example.demo.types.Attribute class
+ * com.example.getSchoolScore.types.Attribute class
  *
  */
 public class Attribute {
@@ -26,7 +26,7 @@ public class Attribute {
     private double threshold;
 
     /**
-     * com.example.demo.types.Attribute constructor
+     * com.example.getSchoolScore.types.Attribute constructor
      *
      * @param name
      * @param possibleValues
@@ -70,7 +70,7 @@ public class Attribute {
 
     @Override
     public String toString() {
-        return "com.example.demo.types.Attribute{" +
+        return "com.example.getSchoolScore.types.Attribute{" +
                 "name='" + name + '\'' +
                 ", possibleValues=" + possibleValues +
                 ", isContinuous=" + isContinuous +

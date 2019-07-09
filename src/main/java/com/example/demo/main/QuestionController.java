@@ -1,9 +1,10 @@
 package com.example.demo.main;
 
 import com.example.demo.classifier.C45;
+import com.example.demo.dto.AnswerDTO;
+import com.example.demo.dto.UserDTO;
 import com.example.demo.model.TrainingData;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.example.demo.data.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,29 +32,6 @@ public class QuestionController {
         System.out.println("connect hello");
         List<Question> questionArrayList = new ArrayList<>();
         questionArrayList = DAO.getQuestions2();
-        System.out.println(questionArrayList);
-//        String sql = "SELECT * FROM Question;";
-//        jdbcTemplate = new JdbcTemplate(dataSource);
-//        jdbcTemplate.query(sql, new ResultSetExtractor() {
-//            @Override
-//            public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-//                while(resultSet.next()){
-//                    Question q = new Question(resultSet);
-//                    list.add(q);
-//                }
-//                return list;
-//            }
-//        });
-//        Map<Integer, Question> mapQuestion = new HashMap<>();
-//        for(int i = 0; i < list.size(); i++){
-//            mapQuestion.put(i, list.get(i));
-//        }
-//        List<Map.Entry<Integer, Question>> listMap = new ArrayList<Map.Entry<Integer, Question>>(mapQuestion.entrySet());
-//
-//        Collections.shuffle(listMap);
-//        for (Map.Entry<Integer, Question> entry : listMap) {
-//            System.out.println(entry.getKey() + " :: " + entry.getValue());
-//        }
         return questionArrayList;
     }
     @GetMapping("/test")
@@ -85,18 +63,29 @@ public class QuestionController {
 
 
     @PostMapping("/demo")
-    public String demo(@RequestParam String s){
+    public UserDTO getSchoolScore(String s){
         System.out.println("connect");
-        List<HashMap<String, HashMap<String, String>>> list = new ArrayList<>();
+        HashMap<String, HashMap<String, String>> list = new HashMap<>();
         Gson gsonBuilder = new GsonBuilder().create();
 
-        Type listType = new TypeToken<List<HashMap<String, HashMap<String, String>>>>() {}.getType();
+        Type listType = new TypeToken<HashMap<String, HashMap<String, String>>>() {}.getType();
         list =  gsonBuilder.fromJson(s, listType);
         System.out.println(s);
         System.out.println(list);
-        HashMap<String, String> lop10 = new HashMap<>();
-        HashMap<String,HashMap<String, String>> json = new HashMap<>();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setSchoolScore(list);
+        return userDTO;
+    }
+    @PostMapping("/answer")
+    public String getAnswer( String  s){
+        System.out.println("connect Ansssss");
+        System.out.println(s);
+        Gson gson = new GsonBuilder().create();
+        List<AnswerDTO> answerDTOS = new ArrayList<>();
+        answerDTOS = gson.fromJson(s, new TypeToken<List<AnswerDTO>>(){}.getType());
+//        UserDTO userDTO = getSchoolScore();
         return "connect";
     }
+
 
 }
