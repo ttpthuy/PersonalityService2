@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 @Getter @Setter @NoArgsConstructor
 public class UserDTO {
-    private  HashMap<String, HashMap<String, String>> schoolScore;
+    private  List<ScoreDTO> schoolScore;
     private List<AnswerDTO> listAnswerDTOS;
 
-    public UserDTO(HashMap<String, HashMap<String, String>> schoolScore, List<AnswerDTO> listAnswerDTOS) {
-        this.schoolScore = schoolScore;
-        this.listAnswerDTOS = listAnswerDTOS;
-    }
 
+    public UserDTO(List<AnswerDTO> answerDTOS, List<ScoreDTO> scoreDTOS){
+        this.listAnswerDTOS = answerDTOS;
+        this.schoolScore = scoreDTOS;
+    }
     @Override
     public String toString() {
         return "UserDTO{" +
