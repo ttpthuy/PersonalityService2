@@ -8,7 +8,42 @@ import java.sql.SQLException;
 
 @Getter @Setter
 public class Question {
-    private String idQs;
+    
+	public String getIdQs() {
+		return idQs;
+	}
+
+
+
+	public void setIdQs(String idQs) {
+		this.idQs = idQs;
+	}
+
+
+
+	public String getIdGrQs() {
+		return idGrQs;
+	}
+
+
+
+	public void setIdGrQs(String idGrQs) {
+		this.idGrQs = idGrQs;
+	}
+
+
+
+	public String getQus() {
+		return qus;
+	}
+
+
+
+	public void setQus(String qus) {
+		this.qus = qus;
+	}
+
+	private String idQs;
     private String idGrQs;
     private String qus;
 
@@ -18,7 +53,9 @@ public class Question {
         this.qus = qus;
     }
 
-    public Question(ResultSet resultSet) throws SQLException {
+  
+
+	public Question(ResultSet resultSet) throws SQLException {
         this.idQs = resultSet.getString("Id_Question");
         this.idGrQs = resultSet.getString("Id_GroupQS");
         this.qus = resultSet.getString("text_QS");

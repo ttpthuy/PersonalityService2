@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 public class AnswerDTO {
-    private int ans;
+    private int ans;//diem
     private String idQs;
     private int position;
 

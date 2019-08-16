@@ -1,10 +1,11 @@
 package com.example.demo.util;
 
-import com.example.demo.types.Attribute;
-import com.example.demo.types.Instance;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.example.demo.types.Attribute;
+import com.example.demo.types.Instance;
 
 public class C45Util {
 

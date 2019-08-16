@@ -1,6 +1,6 @@
-package com.example.demo.main;
+package com.example.demo.dao;
 
-import com.example.demo.dao.DataQsDAO;
+import com.example.demo.main.Question;
 import com.example.demo.model.TrainingData;
 import com.example.demo.types.Attribute;
 import com.example.demo.types.Instance;
@@ -9,13 +9,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,9 +26,10 @@ public class DAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public @ResponseBody  List<Instance> getQuestions(List<Attribute> attributes){
+    @ResponseBody
+    public   List<Instance> getQuestions(List<Attribute> attributes){
             ArrayList<Instance> instanceList = new ArrayList<>();
-            String sql = "SELECT * FROM tuvannghenghiep.traning_data;";
+            String sql = "SELECT * FROM tuvannghenghiep.training_data;";
             jdbcTemplate = new JdbcTemplate(dataSource);
             jdbcTemplate.query(sql, new ResultSetExtractor() {
                 @Override
@@ -61,7 +58,7 @@ public class DAO {
     }
     public List<TrainingData> getTraining(){
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "SELECT * FROM tuvannghenghiep.traning_data;";
+        String sql = "SELECT * FROM tuvannghenghiep.training_data;";
         List<TrainingData> data = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor() {
             @Override
@@ -77,10 +74,10 @@ public class DAO {
         return data;
     }
 
-    public List<Question> getQuestions2(){
+    public List<Question> getQuestionsJH(){
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "SELECT * FROM Question;";
+        String sql = "select * from question where Id_GroupQS like" +"'"+"JH%';";
         List<Question> list = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor() {
             @Override

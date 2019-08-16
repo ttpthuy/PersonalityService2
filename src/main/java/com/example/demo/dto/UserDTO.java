@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashMap;
 import java.util.List;
 @Getter @Setter @NoArgsConstructor
 public class UserDTO {
@@ -12,6 +11,8 @@ public class UserDTO {
     private List<AnswerDTO> listAnswerDTOS;
 
 
+   public UserDTO() {
+}
     public UserDTO(List<AnswerDTO> answerDTOS, List<ScoreDTO> scoreDTOS){
         this.listAnswerDTOS = answerDTOS;
         this.schoolScore = scoreDTOS;
