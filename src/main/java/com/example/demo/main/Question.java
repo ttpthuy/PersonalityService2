@@ -7,8 +7,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter @Setter
-public class Question {
-    
+public class Question {  
+	private String idQs;
+    private String idGrQs;
+    private String qus;
+//    private int ans;
+
+    public Question(String idQs, String idGrQs, String qus) {
+        this.idQs = idQs;
+        this.idGrQs = idGrQs;
+        this.qus = qus;
+    }
+
+  
+
+	public Question(ResultSet resultSet) throws SQLException {
+        this.idQs = resultSet.getString("Id_Question");
+        this.idGrQs = resultSet.getString("Id_GroupQS");
+        this.qus = resultSet.getString("text_QS");
+    }
 	public String getIdQs() {
 		return idQs;
 	}
@@ -42,26 +59,20 @@ public class Question {
 	public void setQus(String qus) {
 		this.qus = qus;
 	}
+	
+//    public int getAns() {
+//		return ans;
+//	}
+//
+//
+//
+//	public void setAns(int ans) {
+//		this.ans = ans;
+//	}
 
-	private String idQs;
-    private String idGrQs;
-    private String qus;
 
-    public Question(String idQs, String idGrQs, String qus) {
-        this.idQs = idQs;
-        this.idGrQs = idGrQs;
-        this.qus = qus;
-    }
 
-  
-
-	public Question(ResultSet resultSet) throws SQLException {
-        this.idQs = resultSet.getString("Id_Question");
-        this.idGrQs = resultSet.getString("Id_GroupQS");
-        this.qus = resultSet.getString("text_QS");
-    }
-
-    @Override
+	@Override
     public String toString() {
         return "Question{" +
                 "idQs='" + idQs + '\'' +

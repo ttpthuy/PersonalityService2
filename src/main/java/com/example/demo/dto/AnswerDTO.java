@@ -8,12 +8,11 @@ import lombok.Setter;
 public class AnswerDTO {
     private int ans;//diem
     private String idQs;
-    private int position;
 
-    public AnswerDTO(int ans, String idQs, int position) {
+    public AnswerDTO(int ans, String idQs) {
         this.ans = ans;
         this.idQs = idQs;
-        this.position = position;
+
     }
 
     @Override
@@ -21,7 +20,6 @@ public class AnswerDTO {
         return "AnswerDTO{" +
                 "ans=" + ans +
                 ", idQs='" + idQs + '\'' +
-                ", position=" + position +
                 '}';
     }
 }

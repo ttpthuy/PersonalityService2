@@ -1,7 +1,6 @@
 package com.example.demo.dao;
 
 import com.example.demo.main.Question;
-import com.example.demo.model.TrainingData;
 import com.example.demo.types.Attribute;
 import com.example.demo.types.Instance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class DAO {
     JdbcTemplate jdbcTemplate;
 
     @ResponseBody
-    public   List<Instance> getQuestions(List<Attribute> attributes){
+    public   List<Instance> getTrainingData(List<Attribute> attributes){
             ArrayList<Instance> instanceList = new ArrayList<>();
             String sql = "SELECT * FROM tuvannghenghiep.training_data;";
             jdbcTemplate = new JdbcTemplate(dataSource);
@@ -53,31 +52,53 @@ public class DAO {
                     return instanceList;
                 }
             });
-        System.out.println(instanceList);
+//        System.out.println(instanceList);
             return instanceList;
     }
-    public List<TrainingData> getTraining(){
-        jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "SELECT * FROM tuvannghenghiep.training_data;";
-        List<TrainingData> data = new ArrayList<>();
-        jdbcTemplate.query(sql, new ResultSetExtractor() {
-            @Override
-            public List<TrainingData> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                while (resultSet.next()){
-                    TrainingData trainingData = new TrainingData(resultSet);
-                    data.add(trainingData);
-                }
-                return data;
-            }
-        });
-        System.out.println(data);
-        return data;
-    }
+//    public List<TrainingData> getTraining(){
+//        jdbcTemplate = new JdbcTemplate(dataSource);
+//        String sql = "SELECT * FROM tuvannghenghiep.training_data;";
+//        List<TrainingData> data = new ArrayList<>();
+//        jdbcTemplate.query(sql, new ResultSetExtractor() {
+//            @Override
+//            public List<TrainingData> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+//                while (resultSet.next()){
+//                    TrainingData trainingData = new TrainingData(resultSet);
+//                    data.add(trainingData);
+//                }
+//                return data;
+//            }
+//        });
+//        System.out.println(data);
+//        return data;
+//    }
 
-    public List<Question> getQuestionsJH(){
+    public List<Question> getQuestionsTN(){
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "select * from question where Id_GroupQS like" +"'"+"JH%';";
+        String sql = "select q.*\r\n" + 
+        		"from question q join question_group g\r\n" + 
+        		"where g.Nhom like 'TN%' and q.Id_GroupQS = g.Id_GroupQS;";
+        List<Question> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor() {
+            @Override
+            public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    Question q = new Question(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+//        System.out.println(list);
+        return list;
+    }
+    public List<Question> getQuestionsXH(){
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select q.*\r\n" + 
+        		"from question q join question_group g\r\n" + 
+        		"where g.Nhom like '%XH%' and q.Id_GroupQS = g.Id_GroupQS;";
         List<Question> list = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor() {
             @Override
