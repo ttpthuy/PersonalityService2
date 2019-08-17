@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.dto.Job;
 import com.example.demo.main.Question;
 import com.example.demo.types.Attribute;
 import com.example.demo.types.Instance;
@@ -25,12 +26,12 @@ public class DAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @ResponseBody
+	@ResponseBody
     public   List<Instance> getTrainingData(List<Attribute> attributes){
             ArrayList<Instance> instanceList = new ArrayList<>();
             String sql = "SELECT * FROM tuvannghenghiep.training_data;";
             jdbcTemplate = new JdbcTemplate(dataSource);
-            jdbcTemplate.query(sql, new ResultSetExtractor() {
+            jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
                 @Override
                 public List<Instance> extractData(ResultSet rs) throws SQLException, DataAccessException {
                     while (rs.next()) {
@@ -77,10 +78,10 @@ public class DAO {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select q.*\r\n" + 
-        		"from question q join question_group g\r\n" + 
-        		"where g.Nhom like 'TN%' and q.Id_GroupQS = g.Id_GroupQS;";
+        		"from question q join question_group g on q.Id_GroupQS = g.Id_GroupQS\r\n" + 
+        		"where g.Nhom like 'TN%';";
         List<Question> list = new ArrayList<>();
-        jdbcTemplate.query(sql, new ResultSetExtractor() {
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
             @Override
             public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 while(resultSet.next()){
@@ -97,14 +98,52 @@ public class DAO {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select q.*\r\n" + 
-        		"from question q join question_group g\r\n" + 
-        		"where g.Nhom like '%XH%' and q.Id_GroupQS = g.Id_GroupQS;";
+        		"from question q join question_group g on q.Id_GroupQS = g.Id_GroupQS\r\n" + 
+        		"where g.Nhom like '%XH%';";
         List<Question> list = new ArrayList<>();
-        jdbcTemplate.query(sql, new ResultSetExtractor() {
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
             @Override
             public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 while(resultSet.next()){
                     Question q = new Question(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+        System.out.println(list);
+        return list;
+    }
+    
+    public List<Job> getJobTN(){
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select * from question_group where Nhom like '%TN%' and Id_GroupQS not like 'JH%';";
+        List<Job> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<Job> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    Job q = new Job(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+        System.out.println(list);
+        return list;
+    }
+    
+    public List<Job> getJobXH(){
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select * from question_group where Nhom like '%XH%' and Id_GroupQS not like 'JH%';";
+        List<Job> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<Job> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    Job q = new Job(resultSet);
                     list.add(q);
                 }
                 return list;

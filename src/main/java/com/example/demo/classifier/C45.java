@@ -364,7 +364,7 @@ public class C45 {
 		// "type [Play,Don't_Play] target"};
 
 //		String fileName = "owls.csv";
-		List<Instance> instances = new ArrayList<>();
+//		List<Instance> instances = new ArrayList<>();
 
 		Data data = new Data(attributes);
 

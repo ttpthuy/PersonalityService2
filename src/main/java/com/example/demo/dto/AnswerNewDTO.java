@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
