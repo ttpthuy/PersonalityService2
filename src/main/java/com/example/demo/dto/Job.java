@@ -9,15 +9,31 @@ import java.util.List;
 public class Job {
  private String id;
  private String name;
+ private double maleRatio;
+ private int jobMarket;
  private double score;
-public Job(String id, String name) {
+
+public Job(String id, String name, double maleRatio, int jobMarket) {
 	super();
 	this.id = id;
 	this.name = name;
+	this.maleRatio = maleRatio;
+	this.jobMarket = jobMarket;
 }
+
 public Job(ResultSet resultSet) throws SQLException {
-	this.id = resultSet.getString("Id_GroupQS");
-	this.name = resultSet.getString("G_Name");
+	this.id = resultSet.getString("Id_Job");
+	this.name = resultSet.getString("Name");
+	this.maleRatio = resultSet.getDouble("Male_Ratio");
+	this.jobMarket = resultSet.getInt("Job_market");
+}
+
+public double getMaleRatio() {
+	return maleRatio;
+}
+
+public int getJobMarket() {
+	return jobMarket;
 }
 
 @Override

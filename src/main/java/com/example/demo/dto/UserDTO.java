@@ -11,7 +11,7 @@ import com.example.demo.main.Question;
 
 
 public class UserDTO {
-	private String sex;
+	private byte sex;
 	private List<ScoreDTO> schoolScore;
 	private List<AnswerDTO> listAnswerDTOS;
 	private List<Question> listQs;
@@ -46,6 +46,15 @@ public class UserDTO {
 			
 			for (int i = 0; i < listJob.size(); i++) {
 				listJob.get(i).setScore((listJob.get(i).getScore()*2+avgtmp)/3);
+				if(this.sex == 0) {
+					if(listJob.get(i).getMaleRatio()>=0.5) {
+						listJob.get(i).setScore(listJob.get(i).getScore()
+								+listJob.get(i).getMaleRatio()-0.5+listJob.get(i).getJobMarket()*0.1);
+					}else {
+						listJob.get(i).setScore(listJob.get(i).getScore()
+								+0.5-listJob.get(i).getMaleRatio()+listJob.get(i).getJobMarket()*0.1);
+					}
+				}
 			}
 			lTop= listJob.stream()
 					.sorted(Comparator.comparing( Job :: getScore).reversed())
@@ -130,11 +139,11 @@ public class UserDTO {
 		this.listQs = listQs;
 	}
 	
-	public String getSex() {
+	public byte getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(byte sex) {
 		this.sex = sex;
 	}
 

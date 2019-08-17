@@ -118,7 +118,9 @@ public class DAO {
     public List<Job> getJobTN(){
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "select * from question_group where Nhom like '%TN%' and Id_GroupQS not like 'JH%';";
+        String sql = "select j.*\r\n" + 
+        		"from question_group g join job j on g.Id_GroupQS = j.Id_Job\r\n" + 
+        		"where g.Nhom like '%TN%';";
         List<Job> list = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
             @Override
@@ -137,7 +139,9 @@ public class DAO {
     public List<Job> getJobXH(){
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "select * from question_group where Nhom like '%XH%' and Id_GroupQS not like 'JH%';";
+        String sql = "select j.*\r\n" + 
+        		"from question_group g join job j on g.Id_GroupQS = j.Id_Job\r\n" + 
+        		"where g.Nhom like '%XH%';";
         List<Job> list = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
             @Override

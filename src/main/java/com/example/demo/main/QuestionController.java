@@ -31,6 +31,7 @@ public class QuestionController {
 	DAO DAO;
 	UserDTO uDto;
 	C45 classifier ;
+	String predictedValue = "";
 
 	@GetMapping("/hello")
 	public List<Question> getQuestionsJH() throws IOException {
@@ -90,7 +91,7 @@ public class QuestionController {
 //        answerDTOS = gson.fromJson(ans,new TypeToken<List<AnswerDTO>>(){}.getType());
 		scoreDTOS = gson.fromJson(score, new TypeToken<List<ScoreDTO>>() {
 		}.getType());
-		String sexDto = gson.fromJson(sex, new TypeToken<String>() {
+		Byte sexDto = gson.fromJson(sex, new TypeToken<Byte>() {
 		}.getType());
 //        System.out.println(answerDTOS);
 //        System.out.println(scoreDTOS);
@@ -164,20 +165,95 @@ public class QuestionController {
 		 
 		 //mining
 		 LinkedHashMap<String, String> avp = new LinkedHashMap<>();
-		 avp.put("gioi_tinh", uDto.getSex());
+		 avp.put("gioi_tinh", uDto.getSex()+"");
 		 avp.put("diem_tu_nhien", uDto.avgScoreTN()+"");
 		 avp.put("diem_xa_hoi", uDto.avgScoreXH()+"");
 		 avp.put("do_chenh_lech", (uDto.avgScoreTN()-uDto.avgScoreXH())+"");
 		 avp.put("John_holland", uDto.avgJohnHolland()+"");
 		 avp.put("diem_chuyen_sau", uDto.avgChuyenSau()+"");
 		 Instance test = new Instance(avp, "Test");
-		 String predictedValue = classifier.predict(test, classifier.getDecisionTree());
+		 predictedValue = classifier.predict(test, classifier.getDecisionTree());
 		 
 		 //show top 3 job
 		 return uDto.showTop3(predictedValue);
 		 
 	}
+	//mo rong khi step2 tra ve mang rong do mining gia tri = false
+	//client chuyen ve trang nay de tiep tuc tra loi cau hoi
+	@GetMapping("//Grquestion1_step3_Expand")
+	public List<Question> getQuestionsEx() throws IOException {
+		List<Question> questionArrayList = new ArrayList<>();
+		List<Question> show = new ArrayList<Question>();
+		if (uDto.isKhoiTN()) {
+			questionArrayList = DAO.getQuestionsXH();
+			uDto.setListQs(questionArrayList);
+			List<Job> lJob = new ArrayList<Job>();
+			lJob = DAO.getJobXH();
+			uDto.setListJob(lJob);
+			int count = 0;
+			for (int i = 0; i < questionArrayList.size(); i++) {
+				count = 0;
+				for (int j = i + 1; j < questionArrayList.size(); j++) {
+					if (questionArrayList.get(i).getIdQs().equals(questionArrayList.get(j).getIdQs())) {
+						count++;
+					}
+				}
+				if (count == 0)
+					show.add(questionArrayList.get(i));
+			}
+		}else {
+			questionArrayList = DAO.getQuestionsTN();
+			uDto.setListQs(questionArrayList);
+			List<Job> lJob = new ArrayList<Job>();
+			lJob = DAO.getJobTN();
+			uDto.setListJob(lJob);
+			int count = 0;
+			for (int i = 0; i < questionArrayList.size(); i++) {
+				count = 0;
+				for (int j = i + 1; j < questionArrayList.size(); j++) {
+					if (questionArrayList.get(i).getIdQs().equals(questionArrayList.get(j).getIdQs())) {
+						count++;
+					}
+				}
+				if (count == 0)
+					show.add(questionArrayList.get(i));
+			}
+			System.out.println(show);
+		}
+		
+		return show;
+	}
 
+	// nhan dap an tu client va gui kq cuoi cung cho client
+	// neu mang rong thi thong bao ban khong phu hop voi nganh nghe nao
+	@PostMapping("/Grquestion1_step4_Expand")
+	public List<Job> showJobEx(String s) {
+		// receive data from client
+				JsonObject jsonObject = new JsonObject();
+				Gson gson = new GsonBuilder().create();
+				jsonObject = gson.fromJson(s, JsonObject.class);
+				JsonObject nameValuePair = jsonObject.get("nameValuePairs").getAsJsonObject();
+				JsonElement ans = nameValuePair.get("answer");
+				List<AnswerDTO> answerDTOS = new ArrayList<AnswerDTO>();
+				 answerDTOS = gson.fromJson(ans,new TypeToken<List<AnswerDTO>>(){}.getType());
+				 uDto.setListAnswerDTOS(answerDTOS);
+				 
+				//mining
+				 LinkedHashMap<String, String> avp = new LinkedHashMap<>();
+				 avp.put("gioi_tinh", uDto.getSex()+"");
+				 avp.put("diem_tu_nhien", uDto.avgScoreTN()+"");
+				 avp.put("diem_xa_hoi", uDto.avgScoreXH()+"");
+				 avp.put("do_chenh_lech", (uDto.avgScoreTN()-uDto.avgScoreXH())*-1+"");
+				 avp.put("John_holland", uDto.avgJohnHolland()+"");
+				 avp.put("diem_chuyen_sau", uDto.avgChuyenSau()+"");
+				 Instance test = new Instance(avp, "Test");
+				 predictedValue = classifier.predict(test, classifier.getDecisionTree());
+				 
+				 //show top 3 job
+				 return uDto.showTop3(predictedValue);
+				 
+	}
+	
 	@PostMapping("/demo")
 	public UserDTO getSchoolScore(String s) {
 		System.out.println("connect");

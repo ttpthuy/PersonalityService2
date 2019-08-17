@@ -12,7 +12,9 @@ import java.util.List;
 public abstract class Node {
 
     public List<Node> children;
-    public String getLk() {
+    
+
+	public String getLk() {
 		return lk;
 	}
 
