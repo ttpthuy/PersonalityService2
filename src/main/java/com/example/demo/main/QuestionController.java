@@ -313,6 +313,17 @@ public class QuestionController {
 		// gui danh sach cau hoi xuong client
 		List<Question> lQuestions = new ArrayList<Question>();
 		lQuestions = DAO.findQuestionOfJobByID(jog.getId());
+		List<Question> lQuestionsJH = new ArrayList<Question>();
+		
+		if(uDto.avgScoreTN()>=uDto.avgScoreXH()) {
+			lQuestionsJH = DAO.getQuestionsJH_TN();
+		}else {
+			lQuestionsJH = DAO.getQuestionsJH_XH();
+		}
+		for (int i = 0; i < lQuestionsJH.size(); i++) {
+			lQuestions.add(lQuestionsJH.get(i));
+		}
+		uDto.setListQs(lQuestions);
 		return lQuestions;
 	}
 

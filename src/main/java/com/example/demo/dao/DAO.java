@@ -187,6 +187,48 @@ public class DAO {
         System.out.println(list);
         return list;
     }
+    
+    public List<Question> getQuestionsJH_TN(){
+        System.out.println("danh sach cau hoi JH_TN");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select q.*\r\n" + 
+        		"from question q join question_group g on q.Id_GroupQS = g.Id_GroupQS\r\n" + 
+        		"where g.Nhom like '%TN%' and g.Id_GroupQS like '%JH%';";
+        List<Question> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    Question q = new Question(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+        System.out.println(list);
+        return list;
+    }
+    
+    public List<Question> getQuestionsJH_XH(){
+        System.out.println("danh sach cau hoi JH_TN");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select q.*\r\n" + 
+        		"from question q join question_group g on q.Id_GroupQS = g.Id_GroupQS\r\n" + 
+        		"where g.Nhom like '%XH%' and g.Id_GroupQS like '%JH%';";
+        List<Question> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    Question q = new Question(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+        System.out.println(list);
+        return list;
+    }
     public List<JobOfGroup> getJobAndGroup(){
         System.out.println("danh sach nganh va nhom");
         jdbcTemplate = new JdbcTemplate(dataSource);
