@@ -28,6 +28,13 @@ public Job(ResultSet resultSet) throws SQLException {
 	this.jobMarket = resultSet.getInt("Job_market");
 }
 
+// gioi tinh co phu hop voi cong viec
+public boolean isCoincidence(byte sex) {
+	if(sex == 0 && this.maleRatio >=0.5) return true;
+	if(sex == 1 && this.maleRatio <0.5) return true;
+	return false;
+}
+
 public double getMaleRatio() {
 	return maleRatio;
 }

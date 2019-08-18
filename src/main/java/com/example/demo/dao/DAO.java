@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.dto.Job;
+import com.example.demo.dto.JobOfGroup;
 import com.example.demo.main.Question;
 import com.example.demo.types.Attribute;
 import com.example.demo.types.Instance;
@@ -56,6 +57,36 @@ public class DAO {
 //        System.out.println(instanceList);
             return instanceList;
     }
+	
+	public   List<Instance> getTrainingData2(List<Attribute> attributes){
+        ArrayList<Instance> instanceList = new ArrayList<>();
+        String sql = "SELECT * FROM tuvannghenghiep.training2;";
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<Instance> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    ArrayList<String> attributeValues = new ArrayList<>();
+                    attributeValues.add(rs.getString("Gioi_Tinh"));
+                    attributeValues.add(rs.getString("Diem_so"));
+                    attributeValues.add(rs.getString("Diem_JohnHoland"));
+                    attributeValues.add(rs.getString("Diem_chuyen_sau"));
+                    attributeValues.add(rs.getString("Nhu_cau"));
+                    LinkedHashMap<String, String> attributeValuePairs = new LinkedHashMap<>();
+                    for (int i = 0; i < attributeValues.size(); i++) {
+                        attributeValuePairs.put(attributes.get(i).getName(), attributeValues.get(i));
+                    }
+                    String targetValue = rs.getString("Ket_qua").trim();
+                    instanceList.add(new Instance(attributeValuePairs, targetValue));
+
+                }
+                return instanceList;
+            }
+        });
+//    System.out.println(instanceList);
+        return instanceList;
+}
+	
 //    public List<TrainingData> getTraining(){
 //        jdbcTemplate = new JdbcTemplate(dataSource);
 //        String sql = "SELECT * FROM tuvannghenghiep.training_data;";
@@ -156,4 +187,60 @@ public class DAO {
         System.out.println(list);
         return list;
     }
+    public List<JobOfGroup> getJobAndGroup(){
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select * from question_group where Nhom not like '%JH%';";
+        List<JobOfGroup> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<JobOfGroup> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    JobOfGroup q = new JobOfGroup(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+        System.out.println(list);
+        return list;
+    }
+    public Job findJobByID(String id) {
+    	jdbcTemplate = new JdbcTemplate(dataSource);
+    	String sql = "select j.*\r\n" + 
+    			"from question_group g join job j on g.Id_GroupQS = j.Id_Job\r\n" + 
+    			"where g.Id_GroupQS like" + id+";";
+    	 List<Job> list = new ArrayList<>();
+         jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+             @Override
+             public List<Job> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                 while(resultSet.next()){
+                     Job q = new Job(resultSet);
+                     list.add(q);
+                 }
+                 return list;
+             }
+         });
+    	return list.get(0);
+    }
+    
+    public List<Question> findQuestionOfJobByID(String id){
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "select * from question where Id_GroupQS like"+ id +";";
+        List<Question> list = new ArrayList<>();
+        jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
+            @Override
+            public List<Question> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while(resultSet.next()){
+                    Question q = new Question(resultSet);
+                    list.add(q);
+                }
+                return list;
+            }
+        });
+        System.out.println(list);
+        return list;
+    }
+    
 }
