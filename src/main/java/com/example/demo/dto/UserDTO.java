@@ -33,8 +33,19 @@ public class UserDTO {
 				avgtmp = avgtmp - (Math.abs(this.jobTest.getMaleRatio() - 0.5) + this.jobTest.getJobMarket() * 0.1);
 			}
 			this.jobTest.setScore(avgtmp);
-		}else {
-			this.jobTest.setScore(0);
+		} else {
+			if (avgScoreTN() > 1) {
+				avgtmp = (avgScoreTN() + avgAnswer()) / 2;
+			} else {
+				avgtmp = (avgScoreXH() + avgAnswer()) / 2;
+			}
+			if (this.jobTest.isCoincidence(this.sex)) {
+				avgtmp = avgtmp + (Math.abs(this.jobTest.getMaleRatio() - 0.5) + this.jobTest.getJobMarket() * 0.1);
+
+			} else {
+				avgtmp = avgtmp - (Math.abs(this.jobTest.getMaleRatio() - 0.5) + this.jobTest.getJobMarket() * 0.1);
+			}
+			this.jobTest.setScore(-avgtmp);
 		}
 
 		return this.jobTest;
@@ -42,6 +53,9 @@ public class UserDTO {
 
 	public List<Job> showTop3(String taget) {
 		List<Job> lTop = new ArrayList<Job>();
+		if("FALSE".equals(taget)) {
+			return lTop;
+		}
 		double avgtmp = 0;
 		if ("tn".equals(taget)) {
 			avgtmp = (avgScoreTN() + avgJohnHolland()) / 2;
@@ -69,7 +83,7 @@ public class UserDTO {
 		}
 
 		for (int i = 0; i < listJob.size(); i++) {
-			listJob.get(i).setScore((listJob.get(i).getScore() * 2 + avgtmp) / 3);
+			listJob.get(i).setScore(((listJob.get(i).getScore()/5*10) * 2 + avgtmp) / 3);
 			if (this.sex == 0) {
 				if (listJob.get(i).getMaleRatio() >= 0.5) {
 					listJob.get(i).setScore(listJob.get(i).getScore() + listJob.get(i).getMaleRatio() - 0.5
@@ -88,35 +102,41 @@ public class UserDTO {
 	}
 
 	public double avgAnswer() {
-		int sum = 0;
+		double sum = 0;
 		for (int i = 0; i < listAnswerDTOS.size(); i++) {
 			sum += listAnswerDTOS.get(i).getAns();
 		}
-		return sum / listAnswerDTOS.size();
+		return (sum / listAnswerDTOS.size()/5*10);
 	}
 
 	public double avgJohnHolland() {
-		int count = 0;
-		int sum = 0;
-		for (int i = 0; i < listAnswerDTOS.size(); i++) {
-			if (listAnswerDTOS.get(i).getIdQs().startsWith("JH")) {
-				sum += listAnswerDTOS.get(i).getAns();
-				count++;
+		double count = 0;
+		double sum = 0;
+		for (int i = 0; i < listQs.size(); i++) {
+			for (int j = 0; j < listAnswerDTOS.size(); j++) {
+				if (listQs.get(i).getIdQs().equals(listAnswerDTOS.get(j).getIdQs()) && listQs.get(i).getIdGrQs().startsWith("JH")) {
+					sum += listAnswerDTOS.get(j).getAns();
+					count++;
+				}
 			}
 		}
-		return sum / count;
+		System.out.println("sum jh "+sum/count);
+		return ((sum / count)/5)*10;
 	}
 
 	public double avgChuyenSau() {
-		int count = 0;
-		int sum = 0;
-		for (int i = 0; i < listAnswerDTOS.size(); i++) {
-			if (!listAnswerDTOS.get(i).getIdQs().startsWith("JH")) {
-				sum += listAnswerDTOS.get(i).getAns();
-				count++;
+		double count = 0;
+		double sum = 0;
+		for (int i = 0; i < listQs.size(); i++) {
+			for (int j = 0; j < listAnswerDTOS.size(); j++) {
+				if (listQs.get(i).getIdQs().equals(listAnswerDTOS.get(j).getIdQs()) && !listQs.get(i).getIdGrQs().startsWith("JH")) {
+					sum += listAnswerDTOS.get(j).getAns();
+					count++;
+				}
 			}
 		}
-		return sum / count;
+		System.out.println("sum cs "+sum/count);
+		return ((sum / count)/5)*10;
 	}
 
 	public boolean isKhoiTN() {

@@ -98,6 +98,8 @@ public class QuestionController {
 //        answerDTOS = gson.fromJson(ans,new TypeToken<List<AnswerDTO>>(){}.getType());
 		scoreDTOS = gson.fromJson(score, new TypeToken<List<ScoreDTO>>() {
 		}.getType());
+		
+//		System.out.println(scoreDTOS);
 		Byte sexDto = gson.fromJson(sex, new TypeToken<Byte>() {
 		}.getType());
 //        System.out.println(answerDTOS);
@@ -107,6 +109,8 @@ public class QuestionController {
 		uDto.setSchoolScore(scoreDTOS);
 		uDto.setSex(sexDto);
 		if (uDto.isKhoiTN()) {
+			
+			System.out.println("khoi tn");
 			List<Question> questionArrayList = new ArrayList<>();
 			questionArrayList = DAO.getQuestionsTN();
 			uDto.setListQs(questionArrayList);
@@ -125,10 +129,12 @@ public class QuestionController {
 				if (count == 0)
 					show.add(questionArrayList.get(i));
 			}
+			System.out.println("in show");
 			System.out.println(show);
 			return show;
 
 		} else {
+			System.out.println("khoi xh");
 			List<Question> questionArrayList = new ArrayList<>();
 			questionArrayList = DAO.getQuestionsXH();
 			uDto.setListQs(questionArrayList);
@@ -147,6 +153,7 @@ public class QuestionController {
 				if (count == 0)
 					show.add(questionArrayList.get(i));
 			}
+			System.out.println("in show");
 			System.out.println(show);
 			return show;
 		}
@@ -179,10 +186,14 @@ public class QuestionController {
 		avp.put("do_chenh_lech", (uDto.avgScoreTN() - uDto.avgScoreXH()) + "");
 		avp.put("John_holland", uDto.avgJohnHolland() + "");
 		avp.put("diem_chuyen_sau", uDto.avgChuyenSau() + "");
+		System.out.println(avp);
 		Instance test = new Instance(avp, "Test");
 		predictedValue = classifier.predict(test, classifier.getDecisionTree());
+		System.out.println("ket qua: "+predictedValue);
 
 		// show top 3 job
+		System.out.println("show top 3");
+		System.out.println(uDto.showTop3(predictedValue));
 		return uDto.showTop3(predictedValue);
 
 	}
@@ -260,6 +271,7 @@ public class QuestionController {
 		avp.put("do_chenh_lech", (uDto.avgScoreTN() - uDto.avgScoreXH()) * -1 + "");
 		avp.put("John_holland", uDto.avgJohnHolland() + "");
 		avp.put("diem_chuyen_sau", uDto.avgChuyenSau() + "");
+		System.out.println(avp);
 		Instance test = new Instance(avp, "Test");
 		predictedValue = classifier.predict(test, classifier.getDecisionTree());
 
@@ -337,7 +349,7 @@ public class QuestionController {
 		}else {
 			avp.put("gioi_tinh", "it_hop");
 		}
-		if(uDto.avgScoreTN()>1) {
+		if(uDto.avgScoreTN()>=uDto.avgScoreXH()) {
 			avp.put("diem_so", uDto.avgScoreTN()+"");
 		}else {
 			avp.put("diem_so", uDto.avgScoreXH()+"");

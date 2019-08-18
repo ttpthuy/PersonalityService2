@@ -106,7 +106,7 @@ public class DAO {
 //    }
 
     public List<Question> getQuestionsTN(){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("danh sach cau hoi tn");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select q.*\r\n" + 
         		"from question q join question_group g on q.Id_GroupQS = g.Id_GroupQS\r\n" + 
@@ -126,7 +126,7 @@ public class DAO {
         return list;
     }
     public List<Question> getQuestionsXH(){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("danh sach cau hoi xh");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select q.*\r\n" + 
         		"from question q join question_group g on q.Id_GroupQS = g.Id_GroupQS\r\n" + 
@@ -147,7 +147,7 @@ public class DAO {
     }
     
     public List<Job> getJobTN(){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("danh sach nganh tn");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select j.*\r\n" + 
         		"from question_group g join job j on g.Id_GroupQS = j.Id_Job\r\n" + 
@@ -168,7 +168,7 @@ public class DAO {
     }
     
     public List<Job> getJobXH(){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("danh sach nganh xh");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select j.*\r\n" + 
         		"from question_group g join job j on g.Id_GroupQS = j.Id_Job\r\n" + 
@@ -188,7 +188,7 @@ public class DAO {
         return list;
     }
     public List<JobOfGroup> getJobAndGroup(){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("danh sach nganh va nhom");
         jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select * from question_group where Nhom not like '%JH%';";
         List<JobOfGroup> list = new ArrayList<>();
@@ -225,9 +225,9 @@ public class DAO {
     }
     
     public List<Question> findQuestionOfJobByID(String id){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("tim cau hoi cua mot nganh");
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "select * from question where Id_GroupQS like"+ id +";";
+        String sql = "select * from question where Id_GroupQS like '"+ id +"';";
         List<Question> list = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
             @Override
