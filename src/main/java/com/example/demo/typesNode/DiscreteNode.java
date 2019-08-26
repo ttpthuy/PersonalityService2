@@ -1,4 +1,4 @@
-package com.example.demo.types.node;
+package com.example.demo.typesNode;
 
 import java.util.ArrayList;
 import java.util.List;

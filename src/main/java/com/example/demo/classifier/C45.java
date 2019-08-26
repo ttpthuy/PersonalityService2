@@ -3,10 +3,10 @@ package com.example.demo.classifier;
 import com.example.demo.data.Data;
 import com.example.demo.types.Attribute;
 import com.example.demo.types.Instance;
-import com.example.demo.types.node.ContinuousNode;
-import com.example.demo.types.node.DiscreteNode;
-import com.example.demo.types.node.LeafNode;
-import com.example.demo.types.node.Node;
+import com.example.demo.typesNode.ContinuousNode;
+import com.example.demo.typesNode.DiscreteNode;
+import com.example.demo.typesNode.LeafNode;
+import com.example.demo.typesNode.Node;
 import com.example.demo.util.C45Util;
 
 import java.io.FileNotFoundException;
@@ -51,15 +51,7 @@ public class C45 {
 		return decisionTree;
 	}
 
-	/**
-	 * @Author Andre Godinez
-	 *
-	 *         Training function given com.example.getSchoolScore.data of instances and attributes
-	 *
-	 * @param data
-	 *            - the com.example.getSchoolScore.data object containing the attributes and instances
-	 *
-	 */
+	
 	public void train(Data data) {
 		targetAttribute = data.getTargetAttribute();
 		possibleTargetValues = targetAttribute.getPossibleValues();
@@ -70,14 +62,7 @@ public class C45 {
 	}
 
 	/**
-	 * @Author Cillian Fennell kiem tra do chinh xac cua thuat toan Testing
-	 *         function that returns the accuracy of c45 decision tree.
-	 *
-	 * @param instanceList
-	 *            - the list of instances containing test com.example.getSchoolScore.data
-	 * @param node
-	 *            - build decision tree
-	 * @return accuracy
+	 * kiem tra do chinh xac cua thuat toan
 	 *
 	 */
 	public double accuracy(List<Instance> instanceList, Node node) {
@@ -90,7 +75,6 @@ public class C45 {
 	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Prints out actual vs expected targetValues to txt file, marks
 	 *         incorrect classifications with an 'X'
@@ -125,13 +109,10 @@ public class C45 {
 	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Testing function shuffles the instance list and splits it into
 	 *         test and training datasets.
 	 *
-	 * @param data
-	 *            - input com.example.getSchoolScore.data from file
 	 * @param n
 	 *            - num times to do cross validation
 	 * @return HashMap of list of accuracies and average accuracy
@@ -209,7 +190,6 @@ public class C45 {
 	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         NB - Only works if the decision tree is built dua ra targetValue
 	 *         du doan Predicts the targetValue given the instance and the
@@ -258,7 +238,6 @@ public class C45 {
 	}
 
 	/**
-	 * @Author Andre Godinez
 	 *
 	 *         Creates a decision tree with child nodes given an instanceList
 	 *         and attributeList
@@ -266,7 +245,7 @@ public class C45 {
 	 * @param instanceList
 	 * @param attributeList
 	 * @param parentInstances
-	 * @return com.example.getSchoolScore.types.node.Node - built Decision Tree
+	 * @return Node - built Decision Tree
 	 *
 	 */
 	public Node fit(List<Instance> instanceList, List<Attribute> attributeList, List<Instance> parentInstances,
@@ -338,22 +317,6 @@ public class C45 {
 	}
 
 	public static void main(String[] args) throws IOException {
-		// String[] attributes = {"body-length real n", "wing-length real n",
-		// "body-width real n", "wing-width real n",
-		// "type [BarnOwl,SnowyOwl,LongEaredOwl] target"};
-//		String[] attributes = { "OUTLOOK text n", "TEMPERATURE real n", "HUMIDITY real n", "WINDY text n",
-//				"type [Play,Don't_Play] target" };
-		
-//		String[] attributes = { "John_holland real n", "gioi_tinh text n", "diem_tu_nhien real n", "diem_xa_hoi real n",
-//			"diem_trung_binh real n", "diem_cau_hoi_chuyen_sau real n",	"type [tn,xh,FALSE] target" };
-		
-		
-//		String[] attributes = {"gioi_tinh text n", "diem_tu_nhien real n", "diem_xa_hoi real n","do_chenh_lech_nang_luc real n",
-//				"diem_trung_binh real n", "John_holland(tu_nhien) real n",  "John_holland(xa_hoi) real n",
-//				"do_chenh_lech_tinh_cach real n","chenh_lech_nang_luc_tinh_cach real n","type [tn,xh,FALSE] target" };
-		
-//		String[] attributes = {"gioi_tinh text n", "diem_tu_nhien real n", "diem_xa_hoi real n",
-//				"diem_trung_binh real n", "John_holland real n",  "diem_chuyen_sau real n",	"type [tn,xh,FALSE] target" };
 		
 		String[] attributes = {"gioi_tinh text n", "diem_tu_nhien real n", "diem_xa_hoi real n", "do_chenh_lech real n",
 				"John_holland real n","diem_chuyen_sau real n","type [tn,xh,FALSE] target" };

@@ -34,7 +34,6 @@ public class C45Util {
 		return subsets;
 	}
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Subset an instance list for continuous values given an attribute
 	 *
@@ -59,7 +58,6 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Gets the best attribute from a list of instances and attributes
 	 *
@@ -80,7 +78,6 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Andre Godinez
 	 *
 	 *         Calculate the information gain over instances for an attribute
 	 *
@@ -139,7 +136,6 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Andre Godinez
 	 *
 	 *         Non conditional entropy
 	 *
@@ -215,17 +211,12 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Andre Godinez
 	 *
 	 *         Gets conditional entropy for a continuous value ie.
 	 *
 	 *         Entropy(type|body-length) =
 	 *         p(type|body-length).entropy(type|body-length)
-	 *
-	 * @param instanceList
-	 * @param attribute
-	 * @param threshold
-	 * @return
+
 	 *
 	 */
 	public static double conditionalEntropy(List<Instance> instanceList, Attribute attribute, double threshold) {
@@ -271,15 +262,9 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Returns value that is used to calculate gain ratio
 	 *
-	 * @param instanceList
-	 *            - list of instances
-	 * @param attribute
-	 * @param threshold
-	 * @return splitInfo
 	 */
 	public static double splitInfo(List<Instance> instanceList, Attribute attribute, double threshold) {
 		// base case
@@ -305,22 +290,16 @@ public class C45Util {
 		return splitInfo;
 	}
 
-	/**
-	 * @Author Andre Godinez
-	 */
 	public static double log2(double x) {
 		return x == 0.0 ? 0.0 : (Math.log(x) / Math.log(2.0));
 	}
 
-	/**
-	 * @Author Cillian Fennell
-	 */
+	
 	public static double getAttributeValue(Instance instance, Attribute attribute) {
 		return Double.parseDouble(instance.getAttributeValues().get(attribute.getName()));
 	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Calculate possible thresholds from an instance list given a
 	 *         specific attribute
@@ -351,7 +330,7 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Cillian Fennell tra ve targetValue co ti le nhieu nhat Returns
+	 *  tra ve targetValue co ti le nhieu nhat Returns
 	 *         the majority targetValue from the instanceList
 	 * @param instanceList
 	 * @return majority targetValue from the instanceList
@@ -370,7 +349,7 @@ public class C45Util {
 	}
 
 	/**
-	 * @Author Cillian Fennell tra ve false neu co nhieu hon 1 kq Returns true
+	 *  tra ve false neu co nhieu hon 1 kq Returns true
 	 *         if all instances have the same targetValue
 	 *
 	 * @return boolean

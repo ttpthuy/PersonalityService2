@@ -5,8 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.demo.main.Question;
-
 public class UserDTO {
 	private byte sex;
 	private List<ScoreDTO> schoolScore;
@@ -22,9 +20,9 @@ public class UserDTO {
 		double avgtmp = 0;
 		if ("TRUE".equals(taget)) {
 			if (avgScoreTN() > 1) {
-				avgtmp = (avgScoreTN() + avgAnswer()) / 2;
+				avgtmp = (avgScoreTN()*2 + avgAnswer()) / 3;
 			} else {
-				avgtmp = (avgScoreXH() + avgAnswer()) / 2;
+				avgtmp = (avgScoreXH()*2 + avgAnswer()) / 3;
 			}
 			if (this.jobTest.isCoincidence(this.sex)) {
 				avgtmp = avgtmp + (Math.abs(this.jobTest.getMaleRatio() - 0.5) + this.jobTest.getJobMarket() * 0.1);
@@ -35,15 +33,15 @@ public class UserDTO {
 			this.jobTest.setScore(avgtmp);
 		} else {
 			if (avgScoreTN() > 1) {
-				avgtmp = (avgScoreTN() + avgAnswer()) / 2;
+				avgtmp = (avgScoreTN());
 			} else {
-				avgtmp = (avgScoreXH() + avgAnswer()) / 2;
+				avgtmp = (avgScoreXH());
 			}
-			if (this.jobTest.isCoincidence(this.sex)) {
-				avgtmp = avgtmp + (Math.abs(this.jobTest.getMaleRatio() - 0.5) + this.jobTest.getJobMarket() * 0.1);
-
-			} else {
-				avgtmp = avgtmp - (Math.abs(this.jobTest.getMaleRatio() - 0.5) + this.jobTest.getJobMarket() * 0.1);
+			if(avgtmp > avgJohnHolland()) {
+				avgtmp = avgJohnHolland();
+			}
+			if(avgtmp > avgChuyenSau()) {
+				avgtmp = avgChuyenSau();
 			}
 			this.jobTest.setScore(-avgtmp);
 		}

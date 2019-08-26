@@ -1,14 +1,6 @@
-package com.example.demo.types.node;
+package com.example.demo.typesNode;
 
-/**
- * @Author Andre Godinez
- *
- * Continuous nodes extend the abstract class node
- *
- * Continuous nodes have a threshold value and the name of the attribute it represents
- * super call because Continuous nodes have children
- *
- */
+
 public class ContinuousNode extends Node {
 
     private double threshold;

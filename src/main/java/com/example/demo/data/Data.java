@@ -39,14 +39,9 @@ public class Data {
 	}
 
 	/**
-	 * @Author Andre Godinez
 	 *
 	 *         Process instanceList from a file, attributes should be populated
 	 *         before running this.
-	 *
-	 * @param fileName
-	 * @return
-	 * @throws IOException
 	 */
 //	private ArrayList<Instance> processInstanceList(String fileName) throws IOException {
 //		Scanner scanner = new Scanner(new File(fileName));
@@ -73,13 +68,9 @@ public class Data {
 //	}
 
 	/**
-	 * @Author Cillian Fennell
 	 *
 	 *         Process the attributes from a string array
 	 *
-	 * @param attributesArray
-	 * @return
-	 * @throws IOException
 	 */
 	private ArrayList<Attribute> processAttributes(String[] attributesArray) throws IOException {
 

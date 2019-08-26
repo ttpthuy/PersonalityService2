@@ -1,32 +1,23 @@
-package com.example.demo.types.node;
+package com.example.demo.typesNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Author Andre Godinez
- *
- * Abstract class to represent com.example.getSchoolScore.types.node.Node
- *
- */
+
 public abstract class Node {
 
     public List<Node> children;
+    public String lk;
     
-
-	public String getLk() {
-		return lk;
-	}
-
-	public String lk;
-
-    public void setLk(String lk) {
-		this.lk = lk;
-	}
-
 	public Node() {
         children = new ArrayList<>();
     }
+	public String getLk() {
+		return lk;
+	}
+	 public void setLk(String lk) {
+			this.lk = lk;
+		}
 
     public void addChild(Node child) {
         this.children.add(child);

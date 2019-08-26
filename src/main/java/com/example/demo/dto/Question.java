@@ -1,4 +1,4 @@
-package com.example.demo.main;
+package com.example.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -60,15 +60,7 @@ public class Question {
 		this.qus = qus;
 	}
 	
-//    public int getAns() {
-//		return ans;
-//	}
-//
-//
-//
-//	public void setAns(int ans) {
-//		this.ans = ans;
-//	}
+
 
 
 

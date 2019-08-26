@@ -2,12 +2,7 @@ package com.example.demo.types;
 
 import java.util.List;
 
-/**
- * @Author Andre Godinez
- *
- * com.example.getSchoolScore.types.Attribute class
- *
- */
+
 public class Attribute {
 
     // attribute name
@@ -25,13 +20,7 @@ public class Attribute {
     //threshold associated with this attribute if any
     private double threshold;
 
-    /**
-     * com.example.getSchoolScore.types.Attribute constructor
-     *
-     * @param name
-     * @param possibleValues
-     * @param isTarget
-     */
+   
     public Attribute(String name, List<String> possibleValues, boolean isTarget) {
         this.name = name;
         this.possibleValues = possibleValues;

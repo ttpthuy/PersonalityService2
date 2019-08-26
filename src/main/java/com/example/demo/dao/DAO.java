@@ -2,7 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.dto.Job;
 import com.example.demo.dto.JobOfGroup;
-import com.example.demo.main.Question;
+import com.example.demo.dto.Question;
 import com.example.demo.types.Attribute;
 import com.example.demo.types.Instance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -232,7 +232,7 @@ public class DAO {
     public List<JobOfGroup> getJobAndGroup(){
         System.out.println("danh sach nganh va nhom");
         jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "select * from question_group where Nhom not like '%JH%';";
+        String sql = "select * from question_group where Id_GroupQS not like '%JH%';";
         List<JobOfGroup> list = new ArrayList<>();
         jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
             @Override
@@ -251,7 +251,7 @@ public class DAO {
     	jdbcTemplate = new JdbcTemplate(dataSource);
     	String sql = "select j.*\r\n" + 
     			"from question_group g join job j on g.Id_GroupQS = j.Id_Job\r\n" + 
-    			"where g.Id_GroupQS like" + id+";";
+    			"where g.Id_GroupQS like '" + id+"';";
     	 List<Job> list = new ArrayList<>();
          jdbcTemplate.query(sql, new ResultSetExtractor<Object>() {
              @Override
