@@ -39,14 +39,14 @@ public class Controller {
 	@GetMapping("/hello")
 	public List<Question> getQuestionsJH() throws IOException {
 		// get c45 tree
-		String[] attributes = { "gioi_tinh text n", "diem_tu_nhien real n", "diem_xa_hoi real n",
-				"do_chenh_lech real n", "John_holland real n", "diem_chuyen_sau real n", "type [tn,xh,FALSE] target" };
+//		String[] attributes = { "gioi_tinh text n", "diem_tu_nhien real n", "diem_xa_hoi real n",
+//				"do_chenh_lech real n", "John_holland real n", "diem_chuyen_sau real n", "type [tn,xh,FALSE] target" };
 
-//		String[] attributes = { "gioi_tinh text n", "diem_so real n", "Diem_John_Holand real n",
-//				"Diem_chuyen_sau real n", "Nhu_cau real n", "type [TRUE,FALSE] target" };
+		String[] attributes = { "gioi_tinh text n", "diem_so real n", "Diem_John_Holand real n",
+				"Diem_chuyen_sau real n", "Nhu_cau real n", "type [TRUE,FALSE] target" };
 		Data data = new Data(attributes);
-		List<Instance> instances = DAO.getTrainingData(data.getAttributes());
-//		List<Instance> instances = DAO.getTrainingData2(data.getAttributes());
+//		List<Instance> instances = DAO.getTrainingData(data.getAttributes());
+		List<Instance> instances = DAO.getTrainingData2(data.getAttributes());
 		data.setInstanceList(instances);
 		System.out.println(data);
 		C45 classifier = new C45(0, 5);

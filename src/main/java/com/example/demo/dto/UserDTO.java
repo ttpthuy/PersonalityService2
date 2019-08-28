@@ -56,10 +56,10 @@ public class UserDTO {
 		}
 		double avgtmp = 0;
 		if ("tn".equals(taget)) {
-			avgtmp = (avgScoreTN() + avgJohnHolland()) / 2;
+			avgtmp = (avgScoreTN()*2 + avgJohnHolland()) / 3;
 		}
 		if ("xh".equals(taget)) {
-			avgtmp = (avgScoreXH() + avgJohnHolland()) / 2;
+			avgtmp = (avgScoreXH()*2 + avgJohnHolland()) / 3;
 		}
 
 		for (int j = 0; j < listQs.size(); j++) {
@@ -81,7 +81,7 @@ public class UserDTO {
 		}
 
 		for (int i = 0; i < listJob.size(); i++) {
-			listJob.get(i).setScore(((listJob.get(i).getScore()/5*10) * 2 + avgtmp) / 3);
+			listJob.get(i).setScore(((listJob.get(i).getScore()/5*10) + avgtmp) / 2);
 			if (this.sex == 0) {
 				if (listJob.get(i).getMaleRatio() >= 0.5) {
 					listJob.get(i).setScore(listJob.get(i).getScore() + listJob.get(i).getMaleRatio() - 0.5
